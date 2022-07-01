@@ -22,13 +22,13 @@ class Funcionario {
                 TableName: Funcionarios.tabela,
                 Item: {
                     id: uuidv4(),
-                    nome: dados.NOME,
-                    idade: dados.IDADE,
-                    cargo: dados.CARGO
+                    nome: dados.nome,
+                    idade: dados.idade,
+                    cargo: dados.cargo
                 }
             }
 
-            await Funcionarios.put(parametros).promise()
+            await Funcionarios.cliente.put(parametros).promise()
             
             return 'Funcionário Criado'
         } catch (error) {
@@ -40,21 +40,21 @@ class Funcionario {
         try {
             var parametros = {
                 TableName: Funcionarios.tabela,
-                Key: {HashKey: id},
-                UpdateExpression: `set #a = :x, #b = :y, #c: :z`,
+                Key: {id: id},
+                UpdateExpression: `set #a = :x, #b = :y, #c = :z`,
                 ExpressionAttributeNames: {
                     '#a' : 'nome',
                     '#b' : 'cargo',
                     '#c' : 'idade'
                 },
                 ExpressionAttributeValues: {
-                    ':x' : dados.NOME,
-                    ':y' : dados.CARGO,
-                    ':z' : dados.IDADE
+                    ':x' : dados.nome,
+                    ':y' : dados.cargo,
+                    ':z' : dados.idade
                 }
             }
 
-            await Funcionarios.update(parametros).promise()
+            await Funcionarios.cliente.update(parametros).promise()
             
             return 'Funcionário Atualizado'
         } catch (error) {
@@ -62,14 +62,14 @@ class Funcionario {
         }
     }
 
-    static async deletar(dados) {
+    static async deletar(id) {
         try {
             var parametros = {
                 TableName: Funcionarios.tabela,
-                Key: {HashKey: id}
+                Key: {id: id}
             }
 
-            await Funcionarios.delete(parametros).promise()
+            await Funcionarios.cliente.delete(parametros).promise()
             
             return 'Funcionário Excluido'
         } catch (error) {

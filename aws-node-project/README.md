@@ -1,72 +1,40 @@
-<!--
-title: 'AWS NodeJS Example'
-description: 'This template demonstrates how to deploy a NodeJS function running on AWS Lambda using the traditional Serverless Framework.'
-layout: Doc
-framework: v3
-platform: AWS
-language: nodeJS
-priority: 1
-authorLink: 'https://github.com/serverless'
-authorName: 'Serverless, inc.'
-authorAvatar: 'https://avatars1.githubusercontent.com/u/13742415?s=200&v=4'
--->
+API de CRUD de funcionários utilizando Node.js, Express.js, Serverless, Lambda, DynamoDB
 
+EndPoints:
+https://oa17le9wkg.execute-api.us-east-1.amazonaws.com/dev/funcionario/consultar -> Lista de funcionários (GET)
+https://oa17le9wkg.execute-api.us-east-1.amazonaws.com/dev/funcionario/cadastrar -> Cadastrar um funcionário (POST)
+https://oa17le9wkg.execute-api.us-east-1.amazonaws.com/dev/funcionario/atualizar/:id -> Atualizar um funcionário (PUT)
+https://oa17le9wkg.execute-api.us-east-1.amazonaws.com/dev/funcionario/deletar/:id -> Excluir um funcionário (DELETE)
 
-# Serverless Framework AWS NodeJS Example
+Recursos NPM utilizados:
+aws-sdk;
+aws-serverless-express;
+body-parser;
+cors;
+express;
+uuid
 
-This template demonstrates how to deploy a NodeJS function running on AWS Lambda using the traditional Serverless Framework. The deployed function does not include any event definitions as well as any kind of persistence (database). For more advanced configurations check out the [examples repo](https://github.com/serverless/examples/) which includes integrations with SQS, DynamoDB or examples of functions that are triggered in `cron`-like manner. For details about configuration of specific `events`, please refer to our [documentation](https://www.serverless.com/framework/docs/providers/aws/events/).
+Tutorial:
+Acessar os endpoints pelo Postman ou serviços parecidos, com os respectivos métodos HTTP.
 
-## Usage
+Exemplos de JSON para testar a API:
 
-### Deployment
+https://oa17le9wkg.execute-api.us-east-1.amazonaws.com/dev/funcionario/consultar
+consultar -> {}
 
-In order to deploy the example, you need to run the following command:
-
-```
-$ serverless deploy
-```
-
-After running deploy, you should see output similar to:
-
-```bash
-Deploying aws-node-project to stage dev (us-east-1)
-
-✔ Service deployed to stack aws-node-project-dev (112s)
-
-functions:
-  hello: aws-node-project-dev-hello (1.5 kB)
-```
-
-### Invocation
-
-After successful deployment, you can invoke the deployed function by using the following command:
-
-```bash
-serverless invoke --function hello
-```
-
-Which should result in response similar to the following:
-
-```json
-{
-    "statusCode": 200,
-    "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": {}\n}"
+https://oa17le9wkg.execute-api.us-east-1.amazonaws.com/dev/funcionario/cadastrar
+cadastrar -> {
+  "nome": "David",
+  "cargo": "Adm",
+  "idade": 42
 }
-```
 
-### Local development
-
-You can invoke your function locally by using the following command:
-
-```bash
-serverless invoke local --function hello
-```
-
-Which should result in response similar to the following:
-
-```
-{
-    "statusCode": 200,
-    "body": "{\n  \"message\": \"Go Serverless v3.0! Your function executed successfully!\",\n  \"input\": \"\"\n}"
+https://oa17le9wkg.execute-api.us-east-1.amazonaws.com/dev/funcionario/atualizar/123 -> '123' é o id do usuário
+atualizar -> {
+  "nome": "Pedro",
+  "cargo": "Adm",
+  "idade": 30
 }
-```
+
+https://oa17le9wkg.execute-api.us-east-1.amazonaws.com/dev/funcionario/deletar/123 -> '123' é o id do usuário
+deletar -> {}
